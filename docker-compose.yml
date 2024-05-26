@@ -20,11 +20,11 @@ services:
       postgresql:
         condition: service_started
     environment:
-      - POSTGRES_HOST=postgresql
-      - POSTGRES_PORT=5432
-      - POSTGRES_USER=bn_keycloak
-      - POSTGRES_DB=bitnami_keycloak
-      - POSTGRES_PASSWORD=
+      - PGHOST=postgresql
+      - PGPORT=5432
+      - PGUSER=bn_keycloak
+      - PGDB=bitnami_keycloak
+      - PGPASSWORD=
       - DAILY_BACKUPS_RETAIN_COUNT=2
       - MONTHLY_BACKUPS_RETAIN_COUNT=1
       - YEARLY_BACKUPS_RETAIN_COUNT=1

@@ -9,11 +9,11 @@ RUN apt-get update && apt-get install -y gzip
 ENV DAILY_BACKUPS_RETAIN_COUNT=3
 ENV MONTHLY_BACKUPS_RETAIN_COUNT=3
 ENV YEARLY_BACKUPS_RETAIN_COUNT=3
-ENV POSTGRES_USER=postgres
-ENV POSTGRES_HOST=postgres
-ENV POSTGRES_PORT=5432
-ENV POSTGRES_DB=postgres
-ENV POSTGRES_PASSWORD=postgres
+ENV PGUSER=postgres
+ENV PGHOST=postgres
+ENV PGPORT=5432
+ENV PGDB=postgres
+ENV PGPASSWORD=postgres
 ENV BACKUP_DIR=/backups
 
 # Create directories for backups and scripts

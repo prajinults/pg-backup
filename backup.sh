@@ -12,7 +12,8 @@ YEAR=$(date +'%Y')
 
 # Create a backup
 echo "Creating backup for ${TODAY}"
-pg_dump -U "$POSTGRES_USER" -h "$POSTGRES_HOST" "$POSTGRES_DB" --format=p | gzip > "${BACKUP_DIR}/backup-${TODAY}.sql.gz"
+mkdir -p "$BACKUP_DIR"
+pg_dump -U "$PGUSER" -h "$PGHOST" "$PGDB" --format=p | gzip > "${BACKUP_DIR}/backup-${TODAY}.sql.gz"
 
 
 ## check monthly backup exists
@@ -27,6 +28,15 @@ if [ ! -f "${BACKUP_DIR}/backup-${YEAR}-01-01.sql.gz" ]; then
   cp "${BACKUP_DIR}/backup-${TODAY}.sql.gz" "${BACKUP_DIR}/backup-${YEAR}.sql.gz"
 fi
 
+echo "Backup created successfully."
+# Sleep for 10 seconds to ensure that the backup is completed
+sleep 10
+
+echo "Backup directory size:"
+
+ls -lh "$BACKUP_DIR"
+
+
 # Clean up old backups
 echo "Cleaning up old backups..."
 
@@ -39,4 +49,11 @@ find "$BACKUP_DIR" -type f -regextype posix-extended -regex '.*backup-[0-9]{4}-[
 # Remove old yearly backups but keep the ones created on the first day of each year
 find "$BACKUP_DIR" -type f -regextype posix-extended -regex '.*backup-[0-9]{4}\.sql\.gz' -printf '%T@ %p\n' | sort -n | head -n -$YEARLY_BACKUPS_RETAIN_COUNT | cut -d' ' -f2- | xargs rm;
 
+echo "Old backups cleaned up successfully."
+
 echo "Backup and cleanup process completed."
+
+echo "sleeping for 5min"
+sleep 300
+
+echo "Backup process stopped."
